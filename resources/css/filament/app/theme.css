@@ -1,0 +1,22 @@
+@import '/vendor/filament/filament/resources/css/theme.css';
+
+@config 'tailwind.config.js';
+
+.fi-panel-app {
+    @apply px-2;
+}
+
+/* .fi-topbar {
+    @apply border-0 shadow-none;
+} */
+.fi-main {
+    @apply bg-white mt-2 mb-2 border rounded shadow mx-0 max-w-none;
+}
+
+.fi-input-wrp {
+    @apply rounded;
+}
+
+.fi-ta-ctn {
+    @apply rounded;
+}
