@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use App\Models\Venue;
 
 return new class extends Migration
 {
@@ -13,13 +14,14 @@ return new class extends Migration
     {
         Schema::create('conferences', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name', 60);
             $table->text('description');
             $table->dateTime('start_date');
             $table->dateTime('end_date');
+            $table->boolean('is_published')->default(false);
             $table->string('status');
             $table->string('region');
-            $table->foreignId('venue_id')->nullable();
+            $table->foreignIdFor(Venue::class)->nullable();
             $table->timestamps();
         });
     }

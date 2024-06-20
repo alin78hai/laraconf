@@ -5,12 +5,10 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\ConferenceResource\Pages;
 use App\Filament\Resources\ConferenceResource\RelationManagers;
 use App\Models\Conference;
-use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class ConferenceResource extends Resource
@@ -22,38 +20,7 @@ class ConferenceResource extends Resource
     public static function form(Form $form): Form
     {
         return $form
-            ->schema([
-                Forms\Components\TextInput::make('name')
-                    ->label('Conference Name')
-                    ->required()
-                    ->maxLength(60),
-                Forms\Components\MarkdownEditor::make('description')
-                    ->required()
-                    ->columnSpanFull(),
-                Forms\Components\DateTimePicker::make('start_date')
-                    ->required(),
-                Forms\Components\DateTimePicker::make('end_date')
-                    ->required(),
-                Forms\Components\Select::make('region')
-                    ->required()
-                    ->options([
-                        'north-america' => 'North America',
-                        'south-america' => 'South America',
-                        'europe' => 'Europe',
-                        'asia' => 'Asia',
-                        'africa' => 'Africa',
-                        'australia' => 'Australia',
-                    ]),
-                Forms\Components\Select::make('venue_id')
-                    ->relationship('venue', 'name'),
-                Forms\Components\Select::make('status')
-                    ->required()
-                    ->options([
-                        'upcoming' => 'Upcoming',
-                        'ongoing' => 'Ongoing',
-                        'past' => 'Past',
-                    ]),
-            ]);
+            ->schema(Conference::getFormSchema());
     }
 
     public static function table(Table $table): Table
