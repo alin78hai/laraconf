@@ -5,7 +5,6 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\TalkResource\Pages;
 use App\Filament\Resources\TalkResource\RelationManagers;
 use App\Models\Talk;
-use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -22,17 +21,7 @@ class TalkResource extends Resource
     public static function form(Form $form): Form
     {
         return $form
-            ->schema([
-                Forms\Components\Select::make('speaker_id')
-                    ->relationship('speaker', 'name')
-                    ->required(),
-                Forms\Components\TextInput::make('title')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\Textarea::make('abstract')
-                    ->required()
-                    ->columnSpanFull(),
-            ]);
+            ->schema(Talk::getFormSchema());
     }
 
     public static function table(Table $table): Table

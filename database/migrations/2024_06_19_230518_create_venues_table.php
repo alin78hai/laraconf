@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('country', 60);
             $table->string('postal_code');
             $table->string('region');
+            $table->text('images');
             $table->timestamps();
         });
     }

@@ -2,11 +2,25 @@
 
 namespace App\Enums;
 
+use App\Enums\Attributes\Description;
+use App\Traits\GetEnumAttributes;
+
 enum Region: string
 {
-    case US = 'United States';
-    case EU = 'Europe';
-    case AU = 'Australia';
-    case IN = 'India';
-    case ONLINE = 'Online';
+    use GetEnumAttributes;
+
+    #[Description('United States')]
+    case US = 'US';
+
+    #[Description('Europe')]
+    case EU = 'EU';
+
+    #[Description('Australia')]
+    case AU = 'AU';
+
+    #[Description('India')]
+    case IN = 'IN';
+
+    #[Description('Online')]
+    case ONLINE = 'OL';
 }

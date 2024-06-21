@@ -5,7 +5,9 @@ namespace App\Providers\Filament;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
+use Filament\Navigation\NavigationItem;
 use Filament\Pages;
+use Filament\Pages\Dashboard;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Widgets;
@@ -35,6 +37,8 @@ class AppPanelProvider extends PanelProvider
                 'gray' => Color::Stone,
             ])
             ->viteTheme('resources/css/filament/app/theme.css')
+            ->sidebarCollapsibleOnDesktop()
+            ->sidebarWidth('16rem')
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
             ->pages([
@@ -59,6 +63,18 @@ class AppPanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
+            ])
+            ->navigationItems([
+                NavigationItem::make('Analytics')
+                    ->url('https://filament.pirsch.io', shouldOpenInNewTab: true)
+                    ->icon('heroicon-o-presentation-chart-line')
+                    ->group('Reports')
+                    ->sort(3),
+                // NavigationItem::make('dashboard')
+                //     ->label(fn (): string => __('filament-panels::pages/dashboard.title'))
+                //     ->url(fn (): string => Dashboard::getUrl())
+                //     ->isActiveWhen(fn () => request()->routeIs('filament.admin.pages.dashboard')),
+                // ...
             ]);
     }
 

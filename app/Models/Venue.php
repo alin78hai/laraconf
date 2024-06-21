@@ -33,8 +33,8 @@ class Venue extends Model
                 ->maxLength(60),
             Forms\Components\Select::make('region')
                 ->enum(Region::class)
-                ->required()
-                ->options(Region::class),
+                ->options(Region::asSelectArray())
+                ->required(),
             Forms\Components\TextInput::make('country')
                 ->required()
                 ->maxLength(255),
