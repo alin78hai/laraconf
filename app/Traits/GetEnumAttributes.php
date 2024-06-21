@@ -30,12 +30,12 @@ trait GetEnumAttributes
     {
         /** @var array<string,string> $values */
         $values = collect(self::cases())
-            ->map(function ($enum) {
+            ->mapWithKeys(function ($enum) {
                 return [
-                    'name' => self::getDescription($enum),
-                    'value' => $enum->value,
+                    $enum->value => self::getDescription($enum),
                 ];
-            })->toArray();
+            })
+            ->toArray();
 
         return $values;
     }

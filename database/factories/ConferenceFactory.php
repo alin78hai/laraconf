@@ -22,14 +22,17 @@ class ConferenceFactory extends Factory
      */
     public function definition(): array
     {
+        $status = $this->faker->randomElement(['upcoming', 'ongoing', 'past']);
+        $region = $this->faker->randomElement(Region::class);
         return [
             'name' => $this->faker->name(),
             'description' => $this->faker->text(),
             'start_date' => $this->faker->dateTime(),
             'end_date' => $this->faker->dateTime(),
-            'status' => $this->faker->word(),
-            'region' => $this->faker->randomElement(Region::class),
-            'venue_id' => Venue::factory(),
+            'status' => $status,
+            'is_published' => $status !== 'upcoming',
+            'region' => $region,
+            'venue_id' => Venue::factory()->state(['region' => $region]),
         ];
     }
 }
