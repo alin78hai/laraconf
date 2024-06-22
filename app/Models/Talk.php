@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\{ TalkStatus, TalkLength };
 use Filament\Forms;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -15,6 +16,9 @@ class Talk extends Model
     protected $casts = [
         'id' => 'integer',
         'speaker_id' => 'integer',
+        'is_newtalk' => 'boolean',
+        'status' => TalkStatus::class,
+        'length' => TalkLength::class,
     ];
 
     public function speaker(): BelongsTo
@@ -32,6 +36,8 @@ class Talk extends Model
         return [
             Forms\Components\Select::make('speaker_id')
                 ->relationship('speaker', 'name')
+                ->createOptionForm(Speaker::getFormSchema())
+                ->editOptionForm(Speaker::getFormSchema())
                 ->required(),
             Forms\Components\TextInput::make('title')
                 ->required()
@@ -39,6 +45,14 @@ class Talk extends Model
             Forms\Components\MarkdownEditor::make('abstract')
                 ->required()
                 ->columnSpanFull(),
+            Forms\Components\Select::make('length')
+                ->options(TalkLength::asSelectArray())
+                ->required(),
+            Forms\Components\Select::make('status')
+                ->options(TalkStatus::asSelectArray())
+                ->required(),
+            Forms\Components\Toggle::make('is_newtalk')
+                ->required(),
         ];
     }
 }

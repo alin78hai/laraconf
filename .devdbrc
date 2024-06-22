@@ -1,0 +1,6 @@
+[
+  {
+    "type": "sqlite",
+    "path": "/home/alinh/code/laraconf/database/database.sqlite"
+  }
+]

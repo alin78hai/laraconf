@@ -23,4 +23,15 @@ enum Region: string
 
     #[Description('Online')]
     case ONLINE = 'OL';
+
+    public function getRegion(): string
+    {
+        return match ($this) {
+            self::US => 'United States',
+            self::EU => 'Europe',
+            self::AU => 'Australia',
+            self::IN => 'India',
+            self::ONLINE => 'Online',
+        };
+    }
 }

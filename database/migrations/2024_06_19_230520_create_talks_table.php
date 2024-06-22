@@ -3,6 +3,8 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use App\Models\Speaker;
+use App\Enums\{ TalkLength, TalkStatus };
 
 return new class extends Migration
 {
@@ -13,9 +15,12 @@ return new class extends Migration
     {
         Schema::create('talks', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('speaker_id');
+            $table->foreignIdFor(Speaker::class);
             $table->string('title');
             $table->text('abstract');
+            $table->string('length')->default(TalkLength::NORMAL);
+            $table->string('status')->default(TalkStatus::SUBMITTED);
+            $table->boolean('is_newtalk')->default(true);
             $table->timestamps();
         });
     }

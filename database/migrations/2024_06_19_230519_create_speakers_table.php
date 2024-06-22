@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('email');
             $table->text('bio')->nullable();
             $table->string('twitter_handle')->nullable();
-            $table->text('avatar')->nullable();
+            // $table->text('avatar')->nullable();
             $table->json('qualifications')->nullable();
             $table->timestamps();
         });
