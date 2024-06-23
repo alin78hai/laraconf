@@ -4,6 +4,8 @@ namespace App\Models;
 
 use App\Enums\{ TalkStatus, TalkLength };
 use Filament\Forms;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -31,17 +33,23 @@ class Talk extends Model
         return $this->belongsToMany(Conference::class);
     }
 
+    public function scopeApproved($query): Builder
+    {
+        return $query->where('status', TalkStatus::APPROVED);
+    }
+
     public static function getFormSchema()
     {
         return [
+            Forms\Components\TextInput::make('title')
+                ->columnSpanFull()
+                ->required()
+                ->maxLength(255),
             Forms\Components\Select::make('speaker_id')
                 ->relationship('speaker', 'name')
                 ->createOptionForm(Speaker::getFormSchema())
                 ->editOptionForm(Speaker::getFormSchema())
                 ->required(),
-            Forms\Components\TextInput::make('title')
-                ->required()
-                ->maxLength(255),
             Forms\Components\MarkdownEditor::make('abstract')
                 ->required()
                 ->columnSpanFull(),

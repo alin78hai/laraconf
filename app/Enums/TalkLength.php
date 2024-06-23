@@ -26,4 +26,13 @@ enum TalkLength: string
             self::NORMAL => 'success',
         };
     }
+
+    public function getIcon(): string
+    {
+        return match ($this) {
+            self::KEYNOTE => 'heroicon-o-key',
+            self::LIGHTNING => 'heroicon-o-bolt',
+            self::NORMAL => 'heroicon-o-megaphone',
+        };
+    }
 }
