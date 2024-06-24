@@ -70,7 +70,7 @@ class VenueResource extends Resource
         return [
             'index' => Pages\ListVenues::route('/'),
             'create' => Pages\CreateVenue::route('/create'),
-            'edit' => Pages\EditVenue::route('/{record}/edit'),
+            // 'edit' => Pages\EditVenue::route('/{record}/edit'),
         ];
     }
 }

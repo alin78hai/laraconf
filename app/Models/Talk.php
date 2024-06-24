@@ -38,7 +38,7 @@ class Talk extends Model
         return $query->where('status', TalkStatus::APPROVED);
     }
 
-    public static function getFormSchema()
+    public static function getFormSchema($speakerId = null): array
     {
         return [
             Forms\Components\TextInput::make('title')
@@ -46,6 +46,7 @@ class Talk extends Model
                 ->required()
                 ->maxLength(255),
             Forms\Components\Select::make('speaker_id')
+                ->hidden(fn() => $speakerId !== null)
                 ->relationship('speaker', 'name')
                 ->createOptionForm(Speaker::getFormSchema())
                 ->editOptionForm(Speaker::getFormSchema())

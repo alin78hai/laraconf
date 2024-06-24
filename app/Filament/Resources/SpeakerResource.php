@@ -35,6 +35,9 @@ class SpeakerResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->paginated(['5', '10', '15', '25'])
+            ->defaultPaginationPageOption(5)
+            ->extremePaginationLinks()
             ->columns([
                 SpatieMediaLibraryImageColumn::make('avatar')
                     ->circular()
@@ -69,7 +72,7 @@ class SpeakerResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            RelationManagers\TalksRelationManager::class,
         ];
     }
 

@@ -12,6 +12,8 @@ use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Widgets;
 use Filament\Support\Colors\Color;
+use Filament\Tables\Actions\CreateAction;
+use Filament\Tables\Actions\EditAction;
 // use Filament\Support\Facades\FilamentView;
 use Filament\Widgets\StatsOverviewWidget;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
@@ -84,4 +86,10 @@ class AppPanelProvider extends PanelProvider
 
     //     FilamentView::registerRenderHook('panels::body.end', fn(): string => Blade::render("@vite('resources/js/app.js)"));
     // }
+
+    public function boot(): void
+    {
+        CreateAction::configureUsing(fn($action) => $action->slideOver());
+        EditAction::configureUsing(fn($action) => $action->slideOver());
+    }
 }

@@ -7,6 +7,7 @@ use App\Filament\Resources\ConferenceResource\RelationManagers;
 use App\Models\Conference;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
+use Filament\Support\Enums\FontWeight;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -28,7 +29,9 @@ class ConferenceResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
-                    ->searchable(),
+                    ->searchable()
+                    ->weight(FontWeight::Bold)
+                    ->action(Tables\Actions\EditAction::make()->slideOver()),
                 Tables\Columns\TextColumn::make('start_date')
                     ->dateTime()
                     ->sortable(),
@@ -55,7 +58,13 @@ class ConferenceResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\ViewAction::make()
+                    ->slideOver(),
+                Tables\Actions\ActionGroup::make([
+                    Tables\Actions\EditAction::make()
+                        ->slideOver(),
+                    Tables\Actions\DeleteAction::make(),
+                ]),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -75,8 +84,8 @@ class ConferenceResource extends Resource
     {
         return [
             'index' => Pages\ListConferences::route('/'),
-            'create' => Pages\CreateConference::route('/create'),
-            'edit' => Pages\EditConference::route('/{record}/edit'),
+            // 'create' => Pages\CreateConference::route('/create'),
+            // 'edit' => Pages\EditConference::route('/{record}/edit'),
         ];
     }
 }
